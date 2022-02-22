@@ -109,6 +109,14 @@ public class Controller {
         cR.save(found.get());
         return "redirect:/estoque";
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return "login";
+    }
+
+
+
 }
 
 
