@@ -42,29 +42,48 @@
         </div>
     </div>
 </header>
+<body>
 
-    <hr class="mt-3">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" th:each="carro : ${carros}">
-            <div class="card" style="width: 100%; ">
-                <img class="card-img-top" th:src="@{/home/img/{id_carro}(id_carro=${carro.id})}" alt="Card image cap">
-
-                <div class="card-body">
-                    <p class="card-text">
-                        <span class="card-title" th:text="${carro.modelo} "></span>
-                        <span class="card-title" th:text="${carro.marca}"></span>
-                        <span class="card-title" th:text="${carro.categoria}"></span>
-                    </p>
-                    <h6 th:text="|R$ ${carro.preco}|"></h6>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-</div>
 <hr class="mt-3">
+<main class="flex-fill">
+    <div class="container">
+        <ul class="list-group mb-3">
+            <li class="list-group-item py-3" th:each="carro : ${carros}">
+                <div class="row g-3">
+                    <div class="col-4 col-md-3 col-lg-2">
+                        <a href="#">
+                            <img class="card-img-top" th:src="@{/home/img/{id_carro}(id_carro=${carro.id})}" alt="Card image cap">
+                        </a>
+                    </div>
+                    <div class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center">
+                        <p>
+                            <span class="card-title" th:text="${carro.modelo} "></span>
+                            <span class="card-title" th:text="${carro.marca}"></span>
+                            <span class="card-title" th:text="${carro.categoria}"></span><br>
+                            <span class="card-title" th:text="|Ano ${carro.ano}|"></span>
+                            <span class="card-title" th:text="|R$ ${carro.preco}|"></span>
+
+                        </p>
+                    </div>
+                    <div class="text-end mt-2">
+                        <a th:href="@{/comprar/{id_carro}(id_carro=${carro.id})}" >
+                            <button type="button" class="btn btn-primary btn-sm">Comprar</button></a>
+                        <a th:href="@{exluir/{id_carro}(id_carro=${carro.id})}" >
+                            <button type="button" class="btn btn-secondary btn-sm">Voltar</button></a>
+                    </div>
+                </div>
+    </div>
+    </li>
+    <li class="list-group-item py-3">
+        <div class="text-end">
+            <a href="/Home" class="btn btn-outline-dark btn-lg">
+                Vendas
+            </a>
+        </div>
+    </li>
+    </ul>
+    </div>
+</main>
 
 
 <div class="fixed-bottom">

@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @SequenceGenerator(allocationSize = 1, name = "vendas", sequenceName = "sq_vendas")
 public class Vendas {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -24,6 +25,16 @@ public class Vendas {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    public Vendas() {
+    }
+
+    public Vendas(LocalDate data, Carro carro, double valor, Cliente cliente) {
+        this.data = data;
+        this.carro = carro;
+        this.valor = valor;
+        this.cliente = cliente;
+    }
 
     public Cliente getCliente() {
         return cliente;
@@ -65,4 +76,5 @@ public class Vendas {
     public void setValor(double valor) {
         this.valor = valor;
     }
+
 }

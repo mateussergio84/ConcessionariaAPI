@@ -2,8 +2,10 @@ package br.com.concessionaria.controller;
 
 import br.com.concessionaria.beans.Carro;
 import br.com.concessionaria.beans.Cliente;
+import br.com.concessionaria.beans.Vendas;
 import br.com.concessionaria.repository.CarroRepository;
 import br.com.concessionaria.repository.ClienteRepository;
+import br.com.concessionaria.repository.VendasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.SequenceGenerator;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +27,9 @@ public class Controller {
 
     @Autowired
     ClienteRepository clienteR;
+
+    @Autowired
+    VendasRepository vR;
 
     @RequestMapping(value = "/cadCarro", method = RequestMethod.GET)
     public String form() {
@@ -99,7 +105,7 @@ public class Controller {
         return "/edit";
     }
 
-   @PostMapping("/update/{id}")
+    @PostMapping("/update/{id}")
     public String updateCarro(@PathVariable("id") long id, Carro carro, Model model) {
         Optional<Carro> found = cR.findById(id);
         found.get().setImagem(exibe(id));
@@ -124,6 +130,54 @@ public class Controller {
         return mv;
     }
 
+    @GetMapping("/detalhes/{id_carro}")
+    public ModelAndView detalhes(@PathVariable("id_carro") Long id) {
+        ModelAndView mv = new ModelAndView("detalhes");
+        Carro carro = cR.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        mv.addObject("carros", carro);
+        return mv;
+    }
+
+    @GetMapping("/comprar/{id_carro}")
+    public String Comprar(@PathVariable("id_carro") Long id) {
+        if (vR.findByClienteId(2L) == null) {
+            Cliente cliente = clienteR.getById(2L);
+            Carro carro = cR.getById(id);
+            double valor = carro.getPreco() * 1.001;
+            LocalDate data = LocalDate.now();
+            Vendas vendas = new Vendas(data, carro, valor, cliente);
+            vR.save(vendas);
+            return "redirect:/cadCliente";
+        } else {
+            Cliente cliente = clienteR.getById(2L);
+            Carro carro = cR.getById(id);
+            double valor = carro.getPreco();
+            LocalDate data = LocalDate.now();
+            Vendas vendas = new Vendas(data, carro, valor, cliente);
+            vR.save(vendas);
+            return "redirect:/home";
+        }
+    }
+
+
+    @GetMapping("/vendas")
+    public ModelAndView Vendas() {
+        ModelAndView mv = new ModelAndView("vendas");
+        List<Vendas> venda = vR.findAll();
+        mv.addObject("vendas", venda);
+        return mv;
+    }
+
+    @GetMapping("vendas/tot")
+    public String caixa(){
+        double caixa = 0;
+        List<Vendas> venda = vR.findAll();
+        for(Vendas v: venda){
+            caixa += v.getValor();
+        }
+        return String.valueOf(caixa);
+    }
 
 
 }
