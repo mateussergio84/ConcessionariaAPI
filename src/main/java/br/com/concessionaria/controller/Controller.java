@@ -61,14 +61,14 @@ public class Controller {
     @RequestMapping(value = "/cadCliente", method = RequestMethod.POST)
     public String formCliente(Cliente cliente) {
         clienteR.save(cliente);
-        return "/cadCliente";
+        return "/home";
     }
 
 
     @GetMapping("/home")
     public ModelAndView listaC() {
         ModelAndView mv = new ModelAndView("home");
-        List<Carro> carros = cR.findAll();
+        List<Carro> carros = cR.findByVendidoFalse();
         mv.addObject("carros", carros);
         return mv;
     }
@@ -76,7 +76,7 @@ public class Controller {
     @GetMapping("/estoque")
     public ModelAndView listaCarros() {
         ModelAndView mv = new ModelAndView("estoque");
-        List<Carro> carros = cR.findAll();
+        List<Carro> carros = cR.findByVendidoFalse();
         mv.addObject("carros", carros);
         return mv;
     }
@@ -122,10 +122,21 @@ public class Controller {
     }
 
 
+    @PostMapping("login")
+    public String login(Cliente cliente, Model model ) {
+        if(clienteR.findByEmail(cliente.getEmail()) == null){
+            return "/cadCarro";
+        }
+        else{
+            return "/home";
+        }
+    }
+
+
     @GetMapping("/categoria/{categoria}")
     public ModelAndView listaCarrosNovos(@PathVariable("categoria") String categoria) {
         ModelAndView mv = new ModelAndView("categoria");
-        List<Carro> carros = cR.findByCategoria(categoria);
+        List<Carro> carros = cR.findByVendidoFalseAndCategoria(categoria);
         mv.addObject("carros", carros);
         return mv;
     }
@@ -141,21 +152,25 @@ public class Controller {
 
     @GetMapping("/comprar/{id_carro}")
     public String Comprar(@PathVariable("id_carro") Long id) {
-        if (vR.findByClienteId(2L) == null) {
-            Cliente cliente = clienteR.getById(2L);
+        if (vR.findByClienteId(1L) == null) {
+            Cliente cliente = clienteR.getById(1L);
             Carro carro = cR.getById(id);
             double valor = carro.getPreco() * 1.001;
             LocalDate data = LocalDate.now();
             Vendas vendas = new Vendas(data, carro, valor, cliente);
             vR.save(vendas);
+            carro.setVendido(true);
+            cR.save(carro);
             return "redirect:/cadCliente";
         } else {
-            Cliente cliente = clienteR.getById(2L);
+            Cliente cliente = clienteR.getById(1L);
             Carro carro = cR.getById(id);
             double valor = carro.getPreco();
             LocalDate data = LocalDate.now();
             Vendas vendas = new Vendas(data, carro, valor, cliente);
             vR.save(vendas);
+            carro.setVendido(true);
+            cR.save(carro);
             return "redirect:/home";
         }
     }
@@ -169,15 +184,7 @@ public class Controller {
         return mv;
     }
 
-    @GetMapping("vendas/tot")
-    public String caixa(){
-        double caixa = 0;
-        List<Vendas> venda = vR.findAll();
-        for(Vendas v: venda){
-            caixa += v.getValor();
-        }
-        return String.valueOf(caixa);
-    }
+
 
 
 }

@@ -30,10 +30,11 @@
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul class="navbar-nav mx-auto">
                                 <li class="nav-item"><a class="nav-link active"
-                                                        aria-current="page" href="#">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">Novos</a>
+                                                        aria-current="page" href="/home">Home</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/cadCarro">Add Carro</a>
                                 </li>
-                                <li class="nav-item"><a class="nav-link" href="#">Seminovos</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/vendas">Vendas</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/estoque">Estoque</a></li>
                             </ul>
                         </div>
                     </div>
@@ -45,6 +46,8 @@
     </div>
 </header>
 <body>
+<hr class="mt-3">
+
 <main class="flex-fill">
     <div class="container">
         <h6>Vendas</h6>
@@ -61,27 +64,18 @@
                             <span class="card-title" th:text="|Marca ${venda.carro.marca}|"></span>
                             <span class="card-title" th:text="|Modelo ${venda.carro.modelo}|"></span><br>
                             <span class="card-title" th:text="|Vendido em ${venda.data}|"></span>
-                            <span class="card-title" th:text="|Por R$ ${venda.valor}|"></span><br>
+                            <span class="card-title" th:text="|Por R$ ${#numbers.formatCurrency(venda.valor)}|"></span><br>
                             <span class="card-title" th:text="|Comprado por ${venda.cliente.nome}|"></span>
                         </p>
-                    </div>
-                    <div class="text-end mt-2">
-                        <h5 th:src="@{vendas/tot}"> </h5>
-                        <span class="card-title" th:text="${venda.valor}"></span>
                     </div>
                 </div>
     </div>
     </li>
     <li class="list-group-item py-3">
         <div class="text-end">
-            <h4  th:text="|Total R$ ${#aggregates.sum(vendas.![valor])}|"
+            <h4  th:text="|Total R$ ${#numbers.formatCurrency(#aggregates.sum(vendas.![valor]))}|"
             class="text-dark mb-3">
-                Valor Total: R$ 63,84
             </h4>
-            <a href="/Home" class="btn btn-outline-success btn-lg">
-                Continuar Comprando
-            </a>
-            <a href="/teste" class="btn btn-danger btn-lg ms-2 mt-xs-3">Fechar Compra</a>
         </div>
     </li>
     </ul>
@@ -94,50 +88,52 @@
 <hr class="mt-3">
 
 
-<footer class="footer text-center text-white" style="background-color: #4d4d4d;">
-    <!-- Grid container -->
-    <div class="container pt-0">
-        <!-- Section: Social media -->
-        <section class="mb-1">
+<div class="fixed-bottom">
+    <footer class="footer text-center text-white"
+            style="background-color: #4d4d4d;">
+        <!-- Grid container -->
+        <div class="container pt-0">
+            <!-- Section: Social media -->
+            <section class="mb-1">
 
-            <!-- Facebook -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
-               role="button" data-mdb-ripple-color="white"><i
-                    class="fab fa-facebook-f"></i></a>
+                <!-- Facebook -->
+                <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
+                   role="button" data-mdb-ripple-color="dark"><i
+                        class="fab fa-facebook-f"></i></a>
 
-            <!-- Twitter -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
-               role="button" data-mdb-ripple-color="white"><i
-                    class="fab fa-twitter"></i></a>
+                <!-- Twitter -->
+                <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
+                   role="button" data-mdb-ripple-color="dark"><i
+                        class="fab fa-twitter"></i></a>
 
-            <!-- Google -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
-               role="button" data-mdb-ripple-color="white"><i
-                    class="fab fa-google"></i></a>
+                <!-- Google -->
+                <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
+                   role="button" data-mdb-ripple-color="dark"><i
+                        class="fab fa-google"></i></a>
 
-            <!-- Instagram -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
-               role="button" data-mdb-ripple-color="white"><i
-                    class="fab fa-instagram"></i></a>
+                <!-- Instagram -->
+                <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
+                   role="button" data-mdb-ripple-color="dark"><i
+                        class="fab fa-instagram"></i></a>
 
-            <!-- Linkedin -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
-               role="button" data-mdb-ripple-color="white"><i
-                    class="fab fa-linkedin"></i></a>
-            <!-- Github -->
-            <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
-               role="button" data-mdb-ripple-color="white"><i
-                    class="fab fa-github"></i></a>
-        </section>
-        <!-- Section: Social media -->
-    </div>
-    <!-- Grid container -->
+                <!-- Linkedin -->
+                <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
+                   role="button" data-mdb-ripple-color="dark"><i
+                        class="fab fa-linkedin"></i></a>
+                <!-- Github -->
+                <a class="btn btn-link btn-floating btn-lg text-white m-1" href="#!"
+                   role="button" data-mdb-ripple-color="dark"><i
+                        class="fab fa-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
 
-    <!-- Copyright -->
-    <div class="text-center text-white p-1 "
-         style="background-color: #000000;">© 2022 Copyright: FourCar</div>
-    </div>
-    <!-- Copyright -->
+        <!-- Copyright -->
+        <div class="text-center text-white p-1"
+             style="background-color: #000000;">© 2022 Copyright: FourCar</div>
+</div>
+<!-- Copyright -->
 </footer>
 </div>
 </body>

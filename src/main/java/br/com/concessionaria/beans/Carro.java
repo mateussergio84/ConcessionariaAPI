@@ -1,7 +1,6 @@
 package br.com.concessionaria.beans;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @SequenceGenerator(allocationSize = 1, name = "carro", sequenceName = "sq_carro")
@@ -17,10 +16,10 @@ public class Carro {
     private String modelo;
     private String marca;
     private double preco;
+    private boolean vendido = false;
 
     @Lob
     private byte[] imagem;
-
 
     public Long getId() {
         return id;
@@ -77,4 +76,26 @@ public class Carro {
     public void setImagem(byte[] imagem) {
         this.imagem = imagem;
     }
+
+    public boolean isVendido() {
+        return vendido;
+    }
+
+    public void setVendido(boolean vendido) {
+        this.vendido = vendido;
+    }
+
+    public Carro(String categoria, int ano, String modelo, String marca, double preco, boolean vendido, byte[] imagem) {
+        this.categoria = categoria;
+        this.ano = ano;
+        this.modelo = modelo;
+        this.marca = marca;
+        this.preco = preco;
+        this.vendido = vendido;
+        this.imagem = imagem;
+    }
+
+    public Carro(){}
+
+
 }

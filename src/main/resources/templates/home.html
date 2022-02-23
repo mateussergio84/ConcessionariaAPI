@@ -39,7 +39,7 @@
                                 <li class="nav-item"><a class="nav-link" th:href="@{/categoria/{categoria}(categoria=novo)}">Novos</a>
                                 </li>
                                 <li class="nav-item"><a class="nav-link" th:href="@{categoria/{categoria}(categoria=seminovo)}">Seminovos</a></li>
-                                <li class="nav-item"><a class="nav-link" th:href="@{/home}">Login</a></li>
+                                <li class="nav-item"><a class="nav-link" th:href="@{/login}">Login</a></li>
                             </ul>
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                         <span class="card-title" th:text="${carro.marca}"></span>
                         <span class="card-title" th:text="${carro.categoria}"></span>
                     </p>
-                    <h6 th:text="|R$ ${carro.preco}|"></h6>
+                    <h6 th:text="|R$ ${#numbers.formatCurrency(carro.preco)}|"></h6>
                 </div>
             </div>
         </div>

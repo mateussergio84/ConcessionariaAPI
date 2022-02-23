@@ -61,25 +61,18 @@
                             <span class="card-title" th:text="${carro.marca}"></span>
                             <span class="card-title" th:text="${carro.categoria}"></span><br>
                             <span class="card-title" th:text="|Ano ${carro.ano}|"></span>
-                            <span class="card-title" th:text="|R$ ${carro.preco}|"></span>
+                            <span class="card-title" th:text="|R$ ${#numbers.formatCurrency(carro.preco)}|"></span>
 
                         </p>
                     </div>
                     <div class="text-end mt-2">
                         <a th:href="@{/comprar/{id_carro}(id_carro=${carro.id})}" >
                             <button type="button" class="btn btn-primary btn-sm">Comprar</button></a>
-                        <a th:href="@{exluir/{id_carro}(id_carro=${carro.id})}" >
+                        <a th:href="@{/home}" >
                             <button type="button" class="btn btn-secondary btn-sm">Voltar</button></a>
                     </div>
                 </div>
     </div>
-    </li>
-    <li class="list-group-item py-3">
-        <div class="text-end">
-            <a href="/Home" class="btn btn-outline-dark btn-lg">
-                Vendas
-            </a>
-        </div>
     </li>
     </ul>
     </div>

@@ -13,4 +13,8 @@ public interface CarroRepository extends JpaRepository<Carro, Long> {
     List<Carro> findByCategoria(String categoria);
 
 
+    List<Carro> findByVendidoFalseAndCategoria(String categoria);
+
+
+    List<Carro> findByVendidoFalse();
 }
