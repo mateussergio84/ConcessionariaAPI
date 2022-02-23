@@ -67,7 +67,7 @@
                             <span class="card-title" th:text="${carro.marca}"></span>
                             <span class="card-title" th:text="${carro.categoria}"></span><br>
                             <span class="card-title" th:text="${carro.ano}"></span>
-                            <span class="card-title" th:text="|R$ ${carro.preco}|"></span>
+                            <span class="card-title" th:text="|R$ ${#numbers.formatCurrency(carro.preco)}|"></span>
 
                         </p>
                     </div>
