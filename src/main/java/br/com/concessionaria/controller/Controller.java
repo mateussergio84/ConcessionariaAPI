@@ -116,6 +116,15 @@ public class Controller {
     }
 
 
+    @GetMapping("/categoria/{categoria}")
+    public ModelAndView listaCarrosNovos(@PathVariable("categoria") String categoria) {
+        ModelAndView mv = new ModelAndView("categoria");
+        List<Carro> carros = cR.findByCategoria(categoria);
+        mv.addObject("carros", carros);
+        return mv;
+    }
+
+
 
 }
 
