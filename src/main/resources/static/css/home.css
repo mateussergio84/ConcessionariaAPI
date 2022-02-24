@@ -1,6 +1,8 @@
 header {
 	background-color: #66BA80;
 	padding: 10px 15px;
+	    background: black;
+
 }
 
 header nav .navbar-nav .nav-link {
@@ -23,8 +25,8 @@ color: white;
     height: 100%;
 }
 
-header{
-    background: #4d4d4d;
+.container-fluid{
+    background: black;
 }
 
 

@@ -64,7 +64,7 @@
                             <span class="card-title" th:text="|Marca ${venda.carro.marca}|"></span>
                             <span class="card-title" th:text="|Modelo ${venda.carro.modelo}|"></span><br>
                             <span class="card-title" th:text="|Vendido em ${venda.data}|"></span>
-                            <span class="card-title" th:text="|Por R$ ${#numbers.formatCurrency(venda.valor)}|"></span><br>
+                            <span class="card-title" th:text="|Por ${#numbers.formatCurrency(venda.valor)}|"></span><br>
                             <span class="card-title" th:text="|Comprado por ${venda.cliente.nome}|"></span>
                         </p>
                     </div>
@@ -73,7 +73,7 @@
     </li>
     <li class="list-group-item py-3">
         <div class="text-end">
-            <h4  th:text="|Total R$ ${#numbers.formatCurrency(#aggregates.sum(vendas.![valor]))}|"
+            <h4  th:text="|Total ${#numbers.formatCurrency(#aggregates.sum(vendas.![valor]))}|"
             class="text-dark mb-3">
             </h4>
         </div>

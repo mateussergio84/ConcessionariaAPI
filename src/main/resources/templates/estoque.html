@@ -67,7 +67,7 @@
                             <span class="card-title" th:text="${carro.marca}"></span>
                             <span class="card-title" th:text="${carro.categoria}"></span><br>
                             <span class="card-title" th:text="${carro.ano}"></span>
-                            <span class="card-title" th:text="|R$ ${#numbers.formatCurrency(carro.preco)}|"></span>
+                            <span class="card-title" th:text=" ${#numbers.formatCurrency(carro.preco)}"></span>
 
                         </p>
                     </div>
@@ -79,13 +79,6 @@
                     </div>
                 </div>
     </div>
-    </li>
-    <li class="list-group-item py-3">
-        <div class="text-end">
-            <a href="/Home" class="btn btn-outline-dark btn-lg">
-                Vendas
-            </a>
-        </div>
     </li>
     </ul>
     </div>
