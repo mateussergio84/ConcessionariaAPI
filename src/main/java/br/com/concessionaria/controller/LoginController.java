@@ -15,6 +15,8 @@ public class LoginController {
     @Autowired
     ClienteRepository cR;
 
+    public static String email_logado;
+
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
@@ -24,11 +26,13 @@ public class LoginController {
 
     @PostMapping("login")
     public String login(Cliente cliente, Model model ) {
-        if(cR.findByEmail(cliente.getEmail()) == null){
-            return "/cadCarro";
+        if(cR.findByEmailAndSenha(cliente.getEmail(), cliente.getSenha()) == null){
+            cliente.setEmail("");
+            return "/login";
         }
         else{
-            return "/home";
+            email_logado = cliente.getEmail();
+            return "redirect:/home";
         }
     }
 }

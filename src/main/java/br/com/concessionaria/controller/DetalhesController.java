@@ -38,26 +38,29 @@ public class DetalhesController {
 
     @GetMapping("/comprar/{id_carro}")
     public String Comprar(@PathVariable("id_carro") Long id) {
-        if (vR.findByClienteId(1L) == null) {
-            Cliente cliente = clienteR.getById(1L);
-            Carro carro = cR.getById(id);
-            double valor = carro.getPreco() * 1.001;
-            LocalDate data = LocalDate.now();
-            Vendas vendas = new Vendas(data, carro, valor, cliente);
-            vR.save(vendas);
-            carro.setVendido(true);
-            cR.save(carro);
-            return "redirect:/cadCliente";
-        } else {
-            Cliente cliente = clienteR.getById(1L);
-            Carro carro = cR.getById(id);
-            double valor = carro.getPreco();
-            LocalDate data = LocalDate.now();
-            Vendas vendas = new Vendas(data, carro, valor, cliente);
-            vR.save(vendas);
-            carro.setVendido(true);
-            cR.save(carro);
-            return "redirect:/home";
+        Cliente cliente = clienteR.findByEmail(LoginController.email_logado);
+        if (cliente != null) {
+            if (vR.findByCliente(cliente) == null) {
+                Carro carro = cR.getById(id);
+                double valor = carro.getPreco() * 1.001;
+                LocalDate data = LocalDate.now();
+                Vendas vendas = new Vendas(data, carro, valor, cliente);
+                vR.save(vendas);
+                carro.setVendido(true);
+                cR.save(carro);
+                return "redirect:/home";
+            } else {
+                Carro carro = cR.getById(id);
+                double valor = carro.getPreco();
+                LocalDate data = LocalDate.now();
+                Vendas vendas = new Vendas(data, carro, valor, cliente);
+                vR.save(vendas);
+                carro.setVendido(true);
+                cR.save(carro);
+                return "redirect:/home";
+            }
+        }else{
+            return "redirect:/login";
         }
     }
 }
