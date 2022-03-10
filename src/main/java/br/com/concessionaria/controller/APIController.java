@@ -2,8 +2,10 @@ package br.com.concessionaria.controller;
 
 import br.com.concessionaria.beans.Carro;
 import br.com.concessionaria.beans.Cliente;
+import br.com.concessionaria.beans.Vendas;
 import br.com.concessionaria.repository.CarroRepository;
 import br.com.concessionaria.repository.ClienteRepository;
+import br.com.concessionaria.repository.VendasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,9 @@ public class APIController {
 
     @Autowired
     CarroRepository carroR;
+
+    @Autowired
+    VendasRepository vR;
 
 //    @GetMapping
 //    public List<Cliente> listar() {
@@ -50,5 +55,9 @@ public class APIController {
     @RequestMapping(value = "/carro", method = RequestMethod.POST)
     public void deleteCarroById(Carro carro) {
         carroR.delete(carro);
+    }
+
+    public List<Vendas> vendas() {
+        return vR.findAll();
     }
 }

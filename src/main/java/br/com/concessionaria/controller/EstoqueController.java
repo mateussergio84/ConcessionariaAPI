@@ -1,7 +1,6 @@
 package br.com.concessionaria.controller;
 
 import br.com.concessionaria.beans.Carro;
-import br.com.concessionaria.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,22 +14,19 @@ import java.util.Optional;
 public class EstoqueController {
 
     @Autowired
-    CarroRepository cR;
-
-    @Autowired
     APIController api;
 
     @GetMapping("/estoque")
     public ModelAndView listaCarros() {
         ModelAndView mv = new ModelAndView("estoque");
-        List<Carro> carros = cR.findByVendidoFalse();
+        List<Carro> carros = api.getListCarro();
         mv.addObject("carros", carros);
         return mv;
     }
 
     @GetMapping("exluir/{id_carro}")
     public String deletar(@PathVariable("id_carro") Long id) {
-        Optional<Carro> found = cR.findById(id);
+        Optional<Carro> found = api.getCarroById(id);
         api.deleteCarroById(found.get());
         return "redirect:/estoque/";
     }
