@@ -13,6 +13,10 @@ public class CadClienteController {
     @Autowired
     ClienteRepository cR;
 
+    @Autowired
+    APIController apiCad;
+
+
 
     @RequestMapping(value = "/cadCliente", method = RequestMethod.GET)
     public String formCliente() {
@@ -21,7 +25,7 @@ public class CadClienteController {
 
     @RequestMapping(value = "/cadCliente", method = RequestMethod.POST)
     public String formCliente(Cliente cliente) {
-        cR.save(cliente);
+        apiCad.cadCliente(cliente);
         return "/home";
     }
 }

@@ -18,6 +18,8 @@ public class UpdateController {
     @Autowired
     CarroRepository cR;
 
+    @Autowired
+    APIController api;
 
 
     @GetMapping("/edit/{id}")
@@ -31,12 +33,12 @@ public class UpdateController {
 
     @PostMapping("/update/{id}")
     public String updateCarro(@PathVariable("id") long id, Carro carro, Model model) {
-        Optional<Carro> found = cR.findById(id);
+        Optional<Carro> found = api.getCarroById(id);
         found.get().setImagem(exibeImagem(id));
         found.get().setModelo(carro.getModelo());
         found.get().setMarca(carro.getMarca());
         found.get().setAno(carro.getAno());
-        cR.save(found.get());
+        api.cadCarro(found.get());
         return "redirect:/estoque";
     }
 

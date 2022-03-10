@@ -42,7 +42,7 @@ public class DetalhesController {
         if (cliente != null) {
             if (vR.findByCliente(cliente) == null) {
                 Carro carro = cR.getById(id);
-                double valor = carro.getPreco() * 1.001;
+                double valor = carro.getPreco() -(carro.getPreco() * 0.001);
                 LocalDate data = LocalDate.now();
                 Vendas vendas = new Vendas(data, carro, valor, cliente);
                 vR.save(vendas);
@@ -59,7 +59,7 @@ public class DetalhesController {
                 cR.save(carro);
                 return "redirect:/home";
             }
-        }else{
+        } else {
             return "redirect:/login";
         }
     }

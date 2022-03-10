@@ -17,10 +17,14 @@ public class HomeController {
     @Autowired
     CarroRepository cR;
 
+    @Autowired
+    APIController api;
+
     @GetMapping("/home")
     public ModelAndView listaC() {
         ModelAndView mv = new ModelAndView("home");
-        List<Carro> carros = cR.findByVendidoFalse();
+        //List<Carro> carros = cR.findByVendidoFalse();
+        List<Carro> carros = api.getListCarro();
         mv.addObject("carros", carros);
         return mv;
     }

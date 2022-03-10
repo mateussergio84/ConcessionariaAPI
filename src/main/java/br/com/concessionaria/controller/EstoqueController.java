@@ -17,6 +17,9 @@ public class EstoqueController {
     @Autowired
     CarroRepository cR;
 
+    @Autowired
+    APIController api;
+
     @GetMapping("/estoque")
     public ModelAndView listaCarros() {
         ModelAndView mv = new ModelAndView("estoque");
@@ -28,7 +31,7 @@ public class EstoqueController {
     @GetMapping("exluir/{id_carro}")
     public String deletar(@PathVariable("id_carro") Long id) {
         Optional<Carro> found = cR.findById(id);
-        cR.delete(found.get());
+        api.deleteCarroById(found.get());
         return "redirect:/estoque/";
     }
 
