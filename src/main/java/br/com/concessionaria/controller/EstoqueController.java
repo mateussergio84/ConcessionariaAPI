@@ -24,7 +24,7 @@ public class EstoqueController {
         return mv;
     }
 
-    @GetMapping("exluir/{id_carro}")
+    @GetMapping("excluir/{id_carro}")
     public String deletar(@PathVariable("id_carro") Long id) {
         Optional<Carro> found = api.getCarroById(id);
         api.deleteCarroById(found.get());

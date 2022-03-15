@@ -24,32 +24,25 @@ public class APIController {
     @Autowired
     VendasRepository vR;
 
-//    @GetMapping
-//    public List<Cliente> listar() {
-//        return cR.findAll();
-//    }
 
     @RequestMapping(value = "/Cliente", method = RequestMethod.POST)
-    @PostMapping
     public void cadCliente(Cliente cliente) {
         cR.save(cliente);
     }
 
     @RequestMapping(value = "/Carros", method = RequestMethod.POST)
-    @PostMapping
     public void cadCarro(Carro carro) {
         carroR.save(carro);
     }
 
     @RequestMapping(value = "/Carros", method = RequestMethod.GET)
-    @GetMapping
     public List<Carro> getListCarro() {
         return carroR.findByVendidoFalse();
     }
 
     @RequestMapping(value = "/cliente", method = RequestMethod.GET)
-    public Optional<Carro> getCarroById(Long id) {
-        return carroR.findById(id);
+    public Optional<Cliente> getClienteById(Long id) {
+        return cR.findById(id);
     }
 
     @RequestMapping(value = "/carro", method = RequestMethod.POST)
@@ -57,7 +50,14 @@ public class APIController {
         carroR.delete(carro);
     }
 
+    @RequestMapping(value = "/Vendas", method = RequestMethod.GET)
     public List<Vendas> vendas() {
         return vR.findAll();
+    }
+
+
+    @RequestMapping(value = "/carroById", method = RequestMethod.GET)
+    public Optional<Carro> getCarroById(Long id) {
+        return carroR.findById(id);
     }
 }

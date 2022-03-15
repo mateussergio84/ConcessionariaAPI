@@ -17,7 +17,6 @@ public class CadClienteController {
     APIController apiCad;
 
 
-
     @RequestMapping(value = "/cadCliente", method = RequestMethod.GET)
     public String formCliente() {
         return "cadCliente";
@@ -28,4 +27,5 @@ public class CadClienteController {
         apiCad.cadCliente(cliente);
         return "/home";
     }
+    
 }
