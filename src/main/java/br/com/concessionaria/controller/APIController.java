@@ -60,4 +60,9 @@ public class APIController {
     public Optional<Carro> getCarroById(Long id) {
         return carroR.findById(id);
     }
+
+    @RequestMapping(value = "/Categoria", method = RequestMethod.GET)
+    public List<Carro> getListCarroByCategoria(String categoria) {
+            return carroR.findByVendidoFalseAndCategoria(categoria);
+    }
 }

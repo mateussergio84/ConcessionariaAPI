@@ -16,10 +16,14 @@ public class CategoriaController {
     @Autowired
     CarroRepository cR;
 
+    @Autowired
+    APIController api;
+
     @GetMapping("/categoria/{categoria}")
     public ModelAndView listaCarrosNovos(@PathVariable("categoria") String categoria) {
         ModelAndView mv = new ModelAndView("categoria");
-        List<Carro> carros = cR.findByVendidoFalseAndCategoria(categoria);
+        //List<Carro> carros = cR.findByVendidoFalseAndCategoria(categoria);
+        List<Carro>carros = api.getListCarroByCategoria(categoria);
         mv.addObject("carros", carros);
         return mv;
     }

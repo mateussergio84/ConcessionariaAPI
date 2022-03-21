@@ -18,6 +18,9 @@ public class CadCarroController {
     @Autowired
     CarroRepository cR;
 
+    @Autowired
+    APIController api;
+
     @RequestMapping(value = "/cadCarro", method = RequestMethod.GET)
     public String form() {
         return "cadCarro";
@@ -31,7 +34,8 @@ public class CadCarroController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        cR.save(carro);
+       // cR.save(carro);
+        api.cadCarro(carro);
         return "/cadCarro";
     }
 
